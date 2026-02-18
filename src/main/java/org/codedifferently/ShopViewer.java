@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ShopViewer {
+    int curItemIndex = 0;
+
     public void performShopOperations(ArrayList<CoffeeItem> coffeeItems, Customer curCustomer)
     {
         Scanner scan = new Scanner(System.in);
@@ -24,29 +26,11 @@ public class ShopViewer {
 
             System.out.println();
             System.out.println(CoreyeSpeak.coreyePrefix + "Which one would you like to buy?");
-            System.out.println(CoreyeSpeak.coreyePrefix + "Type the number to view the item, or -1 to exit out of the shop.");
+            System.out.println(CoreyeSpeak.coreyePrefix + "Type the number to view the item, " +
+                    " or -1 to exit out of the shop.");
             System.out.println("Type your number below:");
 
-            int itemOption = 0;
-
-            boolean isValidItemChoice = false;
-            while(!isValidItemChoice) {
-                itemOption = scan.nextInt();
-                //0-based indexing.
-                if(itemOption != -1) itemOption -= 1;
-                //System.out.println(itemOption);
-                if(itemOption == -1) {
-                    System.out.println("You've exited out of the shopping experience.");
-                    isFinishedShopping = true;
-                    break;
-                }
-                else if((itemOption < 0 || itemOption >= coffeeItems.size())) {
-                    System.out.println(CoreyeSpeak.coreyePrefix + "That item is not on our menu, make sure to type the correct number!");
-                }
-                else {
-                    isValidItemChoice = true;
-                }
-            }
+            isFinishedShopping = promptToBuy(scan, coffeeItems.size());
 
             //Make sure it breaks out of the other loop if the user enters -1.
             if(isFinishedShopping) {
@@ -63,10 +47,10 @@ public class ShopViewer {
             //user picked valid option, out of while loop
             System.out.println("----------------------------------------");
             System.out.println();
-            System.out.print(coffeeItems.get(itemOption).getItemName());
-            System.out.print(" | $ " + coffeeItems.get(itemOption).getPrice());
+            System.out.print(coffeeItems.get(curItemIndex).getItemName());
+            System.out.print(" | $ " + coffeeItems.get(curItemIndex).getPrice());
             System.out.println();
-            System.out.println(coffeeItems.get(itemOption).getDescription());
+            System.out.println(coffeeItems.get(curItemIndex).getDescription());
             System.out.println();
             System.out.println("----------------------------------------");
 
@@ -75,7 +59,8 @@ public class ShopViewer {
             while(!isValidBuyOption) {
                 buyOption = scan.nextLine();
                 if(buyOption.equals("y")) {
-                    performBuyOperation(curCustomer, coffeeItems.get(itemOption));
+                    int amount = promptBuyAmount(scan);
+                    performBuyOperation(curCustomer, coffeeItems.get(curItemIndex),amount);
                     isValidBuyOption = true;
                 }
                 else if (buyOption.equals("n")) {
@@ -86,11 +71,61 @@ public class ShopViewer {
                 }
             }
         }
-
     }
 
-    void performBuyOperation(Customer customer, CoffeeItem coffeeItem) {
-        System.out.println("You've bought one " + coffeeItem.getItemName() + "!");
-        customer.addDrinkPurchase(coffeeItem);
+    boolean promptToBuy(Scanner scan, int coffeeItemSize) {
+        boolean isValidItemChoice = false;
+        int itemOption = 0;
+        while(!isValidItemChoice) {
+            try {
+                itemOption = scan.nextInt();
+                //0-based indexing.
+                if(itemOption != -1) itemOption -= 1;
+                //System.out.println(itemOption);
+                if(itemOption == -1) {
+                    System.out.println("You've exited out of the shopping experience.");
+                    return true;
+                }
+                else if((itemOption < 0 || itemOption >= coffeeItemSize)) {
+                    System.out.println(CoreyeSpeak.coreyePrefix + "That item is not on our menu, " +
+                            "make sure to type the correct number!");
+                }
+                else {
+                    curItemIndex = itemOption;
+                    isValidItemChoice = true;
+                }
+
+
+            }
+            catch (Exception e) {
+                System.out.println("Invalid input received, you probably typed a String instead of a number.");
+                scan.next();
+            }
+        }
+        return false;
+    }
+
+    int promptBuyAmount(Scanner scan) {
+        int amountInput = 0;
+        boolean hasEnteredAmount = false;
+        while(!hasEnteredAmount) {
+            try {
+                System.out.println("How many would you like to buy?");
+                amountInput = scan.nextInt();
+
+                return amountInput;
+            }
+            catch (Exception e) {
+                System.out.println("Invalid Input, you must've typed a String instead of an Intger");
+                scan.next();
+            }
+
+        }
+        return 1;
+    }
+
+    void performBuyOperation(Customer customer, CoffeeItem coffeeItem, int amount) {
+        System.out.println("You've bought " + amount + " " + coffeeItem.getItemName() + ((amount < 1) ? "" : "s") +  "!");
+        customer.addDrinkPurchase(coffeeItem, amount);
     }
 }

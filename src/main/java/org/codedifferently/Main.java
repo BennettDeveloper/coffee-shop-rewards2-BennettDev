@@ -28,15 +28,15 @@ public class Main {
         customerList.add(glenn);
 
         //Create default coffeeItems
-        CoffeeItem espresso = new CoffeeItem("Espresso", "Bold and concentrated shot of pure coffee", 25, true);
-        CoffeeItem latte = new CoffeeItem("Latte", "Smooth espresso blended with steamed milk", 12, true);
-        CoffeeItem cappuccino = new CoffeeItem("Cappuccino", "Rich espresso topped with foamed milk", 11, true);
-        CoffeeItem macchiatto = new CoffeeItem("Macchiato", "Espresso marked with a touch of milk foam", 16, true);
-        CoffeeItem americano = new CoffeeItem("Americano", "Espresso diluted with hot water for a smooth finish", 15, true);
-        CoffeeItem mocha = new CoffeeItem("Mocha", "Chocolate flavored espresso with steamed milk", 18, true);
-        CoffeeItem avocadoToast = new CoffeeItem("Avocado Toast", "Toasted bread topped with fresh smashed avocado", 11, false);
-        CoffeeItem englishMuffin = new CoffeeItem("English Muffin Breakfast Sandwhich", "Savory breakfast sandwich on a toasted English muffin", 14, false);
-        CoffeeItem waffleBreakfast = new CoffeeItem("Waffle Breakfast Sandwhich", "Sweet and savory breakfast sandwich on a waffle bun", 15, false);
+        CoffeeItem espresso = new CoffeeItem("Espresso", "Bold and concentrated shot of pure coffee", 25, 1);
+        CoffeeItem latte = new CoffeeItem("Latte", "Smooth espresso blended with steamed milk", 12, 1);
+        CoffeeItem cappuccino = new CoffeeItem("Cappuccino", "Rich espresso topped with foamed milk", 11, 1);
+        CoffeeItem macchiatto = new CoffeeItem("Macchiato", "Espresso marked with a touch of milk foam", 16, 1);
+        CoffeeItem americano = new CoffeeItem("Americano", "Espresso diluted with hot water for a smooth finish", 15, 1);
+        CoffeeItem mocha = new CoffeeItem("Mocha", "Chocolate flavored espresso with steamed milk", 18, 1);
+        CoffeeItem avocadoToast = new CoffeeItem("Avocado Toast", "Toasted bread topped with fresh smashed avocado", 11, 1);
+        CoffeeItem englishMuffin = new CoffeeItem("English Muffin Breakfast Sandwhich", "Savory breakfast sandwich on a toasted English muffin", 14, 1);
+        CoffeeItem waffleBreakfast = new CoffeeItem("Waffle Breakfast Sandwhich", "Sweet and savory breakfast sandwich on a waffle bun", 15, 1);
 
         //Add them to list
         ArrayList<CoffeeItem> coffeeItems = new ArrayList<>();
@@ -66,18 +66,18 @@ public class Main {
         name = main.promptNameIntro(scan);
 
         boolean isProgramRunning = false;
+        Customer newCustomer = new Customer(name);
+
+        //Put in existing customer functionality.
+        Customer existingCustomer = main.checkIfCustomerExists(name, customerList);
+        if (existingCustomer != null) {
+            System.out.println(CoreyeSpeak.coreyePrefix + "Wait I know you!! You're a frequent buyer already!");
+            newCustomer = existingCustomer;
+        }
 
         while (!isProgramRunning) {
 
-            Customer newCustomer = new Customer(name);
             System.out.println(CoreyeSpeak.coreyePrefix + "Welcome " + newCustomer.getName() + "... to the COREYE' COFFEE CLUB");
-
-            //Put in existing customer functionality.
-            Customer existingCustomer = main.checkIfCustomerExists(name, customerList);
-            if (existingCustomer != null) {
-                System.out.println(CoreyeSpeak.coreyePrefix + "Wait I know you!! You're a frequent buyer already!");
-                newCustomer = existingCustomer;
-            }
 
             System.out.println("Use these options to navigate around my store!");
             System.out.println("----------------------------------------------");
@@ -94,23 +94,31 @@ public class Main {
             final int optionChoices = 3;
 
             while(!isValidOptionInput) {
-                optionInput = scan.nextInt();
+                try {
+                    optionInput = scan.nextInt();
 
-                if (optionInput > 0 && optionInput <= optionChoices) {
-                    isValidOptionInput = true;
-                } else {
-                    System.out.println("not a valid input, make sure your number is within range!");
+                    if (optionInput > 0 && optionInput <= optionChoices) {
+                        isValidOptionInput = true;
+                    } else {
+                        System.out.println("not a valid input, make sure your number is within range!");
+                    }
+                }
+                catch(Exception e) {
+                    System.out.println("Invalid input received, you probably typed a String instead of a number.");
+                    scan.next();
+
                 }
             }
 
             //Pick Option Input based on choices
             switch(optionInput) {
                 case 1:
-                    ShopViewer shop = new ShopViewer();
-                    shop.performShopOperations(coffeeItems,newCustomer);
+                    ShopViewer shopView = new ShopViewer();
+                    shopView.performShopOperations(coffeeItems,newCustomer);
                     break;
                 case 2:
-                    System.out.println("View stats is not available at this time.");
+                    ProductViewer productView = new ProductViewer();
+                    productView.performProductOperations(newCustomer);
                     break;
                 case 3:
                     System.out.println(CoreyeSpeak.coreyePrefix + "Alright, have a nice day!");
