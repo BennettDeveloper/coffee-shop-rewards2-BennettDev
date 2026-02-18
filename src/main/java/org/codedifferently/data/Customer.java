@@ -123,6 +123,7 @@ public class Customer {
             System.out.println(CoreyeSpeak.coreyePrefix + "YOU'VE BOUGHT 100 ITEMS AT MY STORE!!");
             System.out.println(CoreyeSpeak.coreyePrefix + "I'M GIVING YOU 1 FREE GOLDEN TICKET");
             goldenTickets++;
+            totalAmounts = 0;
         }
 
     }
@@ -149,7 +150,7 @@ public class Customer {
     public void checkRewardEligibility(int amount) {
         System.out.println("Since you've gotten to " + amount + " drinks! " +
                 "You are eligible for a Reward!!!");
-        System.out.println(" Next drink is on us! ");
+        System.out.println(" Next purchase is on us! ");
         freeNextDrink = true;
     }
 

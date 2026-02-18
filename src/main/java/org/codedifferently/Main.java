@@ -12,20 +12,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        //Create default customers.
-        Customer bryant = new Customer("bryant", "bryfer@gmail.com", 0, new ArrayList<>());
-        Customer michael = new Customer("michael", "micmos@gmail.com", 0, new ArrayList<>());
-        Customer jordan = new Customer("jordan", "jorel@gmail.com", 0, new ArrayList<>());
-        Customer coreye = new Customer("coreye", "corros@gmail.com", 0, new ArrayList<>());
-        Customer glenn  = new Customer("glenn", "gletys@gmail.com", 0, new ArrayList<>());
-
-        //Add them to list
-        ArrayList<Customer> customerList = new ArrayList<>();
-        customerList.add(bryant);
-        customerList.add(michael);
-        customerList.add(jordan);
-        customerList.add(coreye);
-        customerList.add(glenn);
 
         //Create default coffeeItems
         CoffeeItem espresso = new CoffeeItem("Espresso", "Bold and concentrated shot of pure coffee", 25, 1);
@@ -49,6 +35,22 @@ public class Main {
         coffeeItems.add(avocadoToast);
         coffeeItems.add(englishMuffin);
         coffeeItems.add(waffleBreakfast);
+
+
+        //Create default customers.
+        Customer bryant = new Customer("bryant", "bryfer@gmail.com", 0, new ArrayList<>());
+        Customer michael = new Customer("michael", "micmos@gmail.com", 0, new ArrayList<>());
+        Customer jordan = new Customer("jordan", "jorel@gmail.com", 0, new ArrayList<>());
+        Customer coreye = new Customer("coreye", "corros@gmail.com", 0, new ArrayList<>());
+        Customer glenn  = new Customer("glenn", "gletys@gmail.com", 0, new ArrayList<>());
+
+        //Add them to list
+        ArrayList<Customer> customerList = new ArrayList<>();
+        customerList.add(bryant);
+        customerList.add(michael);
+        customerList.add(jordan);
+        customerList.add(coreye);
+        customerList.add(glenn);
 
         //Scan user input for their name
         Scanner scan = new Scanner(System.in);
