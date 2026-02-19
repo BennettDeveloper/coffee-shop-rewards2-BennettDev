@@ -15,7 +15,7 @@ public class ProductViewer
         System.out.println("       " + curCustomer.getName().toUpperCase() + "       ");
         System.out.println();
         System.out.println("email: " + curCustomer.getEmaill());
-        System.out.println("total money spent: $" + curCustomer.getMoneySpent());
+        System.out.println("total money spent: $" + String.format("%.2f", curCustomer.getMoneySpent()));
         System.out.println("products purchased: ");
 
         if(curCustomer.getDrinksPurchased().size() < 1) {

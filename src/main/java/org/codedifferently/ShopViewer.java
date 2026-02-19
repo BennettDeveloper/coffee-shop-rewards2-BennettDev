@@ -20,7 +20,7 @@ public class ShopViewer {
             System.out.println(CoreyeSpeak.coreyePrefix + "Here are the menu items for today.");
             for(int i = 0; i < coffeeItems.size(); i++) {
                 System.out.print((i+1) + ". " + coffeeItems.get(i).getItemName());
-                System.out.print(" |  $" + coffeeItems.get(i).getPrice());
+                System.out.print(" |  $" + String.format("%.2f", coffeeItems.get(i).getPrice()));
                 System.out.println();
             }
 
@@ -48,7 +48,7 @@ public class ShopViewer {
             System.out.println("----------------------------------------");
             System.out.println();
             System.out.print(coffeeItems.get(curItemIndex).getItemName());
-            System.out.print(" | $ " + coffeeItems.get(curItemIndex).getPrice());
+            System.out.print(" | $ " + String.format("%.2f", coffeeItems.get(curItemIndex).getPrice()));
             System.out.println();
             System.out.println(coffeeItems.get(curItemIndex).getDescription());
             System.out.println();

@@ -14,15 +14,15 @@ public class Main {
 
 
         //Create default coffeeItems
-        CoffeeItem espresso = new CoffeeItem("Espresso", "Bold and concentrated shot of pure coffee", 25, 1);
-        CoffeeItem latte = new CoffeeItem("Latte", "Smooth espresso blended with steamed milk", 12, 1);
-        CoffeeItem cappuccino = new CoffeeItem("Cappuccino", "Rich espresso topped with foamed milk", 11, 1);
-        CoffeeItem macchiatto = new CoffeeItem("Macchiato", "Espresso marked with a touch of milk foam", 16, 1);
-        CoffeeItem americano = new CoffeeItem("Americano", "Espresso diluted with hot water for a smooth finish", 15, 1);
-        CoffeeItem mocha = new CoffeeItem("Mocha", "Chocolate flavored espresso with steamed milk", 18, 1);
-        CoffeeItem avocadoToast = new CoffeeItem("Avocado Toast", "Toasted bread topped with fresh smashed avocado", 11, 1);
-        CoffeeItem englishMuffin = new CoffeeItem("English Muffin Breakfast Sandwhich", "Savory breakfast sandwich on a toasted English muffin", 14, 1);
-        CoffeeItem waffleBreakfast = new CoffeeItem("Waffle Breakfast Sandwhich", "Sweet and savory breakfast sandwich on a waffle bun", 15, 1);
+        CoffeeItem espresso = new CoffeeItem("Espresso", "Bold and concentrated shot of pure coffee", 5.99, 1);
+        CoffeeItem latte = new CoffeeItem("Latte", "Smooth espresso blended with steamed milk", 7.99, 1);
+        CoffeeItem cappuccino = new CoffeeItem("Cappuccino", "Rich espresso topped with foamed milk", 8.99, 1);
+        CoffeeItem macchiatto = new CoffeeItem("Macchiato", "Espresso marked with a touch of milk foam", 6.99, 1);
+        CoffeeItem americano = new CoffeeItem("Americano", "Espresso diluted with hot water for a smooth finish", 5.99, 1);
+        CoffeeItem mocha = new CoffeeItem("Mocha", "Chocolate flavored espresso with steamed milk", 7.99, 1);
+        CoffeeItem avocadoToast = new CoffeeItem("Avocado Toast", "Toasted bread topped with fresh smashed avocado", 6.99, 1);
+        CoffeeItem englishMuffin = new CoffeeItem("English Muffin Breakfast Sandwhich", "Savory breakfast sandwich on a toasted English muffin", 7.99, 1);
+        CoffeeItem waffleBreakfast = new CoffeeItem("Waffle Breakfast Sandwhich", "Sweet and savory breakfast sandwich on a waffle bun", 7.99, 1);
 
         //Add them to list
         ArrayList<CoffeeItem> coffeeItems = new ArrayList<>();
