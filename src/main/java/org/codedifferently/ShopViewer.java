@@ -54,6 +54,7 @@ public class ShopViewer {
             System.out.println();
             System.out.println("----------------------------------------");
 
+            System.out.println("budget: $" + curCustomer.getBudget());
             System.out.println(CoreyeSpeak.coreyePrefix + "Would you like to buy this item? (y/n)");
 
             while(!isValidBuyOption) {
@@ -125,7 +126,7 @@ public class ShopViewer {
     }
 
     void performBuyOperation(Customer customer, CoffeeItem coffeeItem, int amount) {
-        System.out.println("You've bought " + amount + " " + coffeeItem.getItemName() + ((amount < 1) ? "" : "s") +  "!");
-        customer.addDrinkPurchase(coffeeItem, amount);
+        boolean result = customer.addDrinkPurchase(coffeeItem, amount);
+        if(result) System.out.println("You've bought " + amount + " " + coffeeItem.getItemName() + ((amount < 1) ? "" : "s") +  "!");
     }
 }

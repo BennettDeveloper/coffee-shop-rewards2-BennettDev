@@ -11,6 +11,7 @@ public class Customer {
     private int points;
     private ArrayList<CoffeeItem> drinksPurchased;
 
+    private double budget;
     private double moneySpent;
     private int goldenTickets = 0;
     private boolean freeNextDrink = false;
@@ -26,6 +27,10 @@ public class Customer {
         this.moneySpent = 0;
         this.drinksPurchased = new ArrayList<>();
         freeNextDrink = false;
+
+        Random random = new Random();
+        this.budget = random.nextInt(50,2000);
+
     }
 
     //Existing customer
@@ -36,9 +41,20 @@ public class Customer {
         this.drinksPurchased = drinksPurchased;
         this.moneySpent = 0;
 
+        Random random = new Random();
+        this.budget = random.nextInt(50,2000);
+
         if(email.isEmpty()) {
             this.emaill = generateNewEmail(name);
         }
+    }
+
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
     }
 
     public String getName() {
@@ -86,8 +102,14 @@ public class Customer {
         return drinksPurchased;
     }
 
-    public void addDrinkPurchase(CoffeeItem newDrinkPurchased, int amount) {
+    public boolean addDrinkPurchase(CoffeeItem newDrinkPurchased, int amount) {
 
+        if(budget < newDrinkPurchased.getPrice() * amount) {
+            System.out.println(CoreyeSpeak.coreyePrefix + "You don't have enough money to buy " + amount + " " + newDrinkPurchased.getItemName() + (amount > 1 ? "s":""));
+            return false;
+        }
+
+        int amountPurchased = 0;
         for(int i = 1; i <= amount; i++) {
 
             if(goldenTickets > 0) {
@@ -116,16 +138,19 @@ public class Customer {
             if (i % 5 == 0) {
                 checkRewardEligibility(i);
             }
+
+            budget -= newDrinkPurchased.getPrice();
+            amountPurchased++;
         }
 
-        totalAmounts += amount;
+        totalAmounts += amountPurchased;
         if( totalAmounts >= amountTillGolden) {
             System.out.println(CoreyeSpeak.coreyePrefix + "YOU'VE BOUGHT 100 ITEMS AT MY STORE!!");
             System.out.println(CoreyeSpeak.coreyePrefix + "I'M GIVING YOU 1 FREE GOLDEN TICKET");
             goldenTickets++;
             totalAmounts = 0;
         }
-
+        return true;
     }
 
     public int checkIfDrinkInInventory(CoffeeItem newItem) {

@@ -80,6 +80,7 @@ public class Main {
         while (!isProgramRunning) {
 
             System.out.println(CoreyeSpeak.coreyePrefix + "Welcome " + newCustomer.getName() + "... to the COREYE' COFFEE CLUB");
+            System.out.println("Budget: $" + String.format("%.2f",newCustomer.getBudget()));
 
             System.out.println("Use these options to navigate around my store!");
             System.out.println("----------------------------------------------");
